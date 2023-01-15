@@ -21,15 +21,15 @@ router
 
 router
   .route('/showMe')
-  .get(showCurrentUser);
+  .get(authenticateUser,showCurrentUser);
 
 router
   .route('/updateUser')
-  .patch(updateUser);
+  .patch(authenticateUser,updateUser);
   
 router
   .route('/updateUserPassword')
-  .patch(updateUserPassword);
+  .patch(authenticateUser,updateUserPassword);
 
   router
     .route('/:id')
