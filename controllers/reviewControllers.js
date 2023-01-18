@@ -68,7 +68,7 @@ const updateReview = async (req, res) => {
       path: "product",
       select: "name company price"
     })
-    .populate({
+  .populate({
       path: "user",
       select: "name"
     });
@@ -95,7 +95,7 @@ const deleteReview = async (req, res) => {
     .populate({
       path: "user",
       select: "name"
-    });
+    }); 
   
   if (!review) {
     throw new CustomError.NotFoundError(`No review with id : ${productId}`)
@@ -107,10 +107,20 @@ const deleteReview = async (req, res) => {
   res.status(StatusCodes.OK).json({review, msg: "product deleted successfully!" });
 };
 
+const getSingleProductReview = async (req, res) => {
+  const {
+    id: productId
+  } = req.params;
+  const reviews = await Review.find({ product: productId });
+  res.status(StatusCodes.OK).json({ reviews, count: reviews.length });
+}
+
+
 module.exports = {
   createReview,
   getAllReviews,
   getSingleReview,
   updateReview,
-  deleteReview
+  deleteReview,
+  getSingleProductReview,
 };
