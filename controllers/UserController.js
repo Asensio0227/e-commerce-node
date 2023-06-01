@@ -8,8 +8,7 @@ const {
 } = require('../utils');
 
 const getAllUsers = async (req, res) => {
-  let result = await User.find({roles:"user"}).select('-password');
-  // console.log(user);
+  let result = User.find({roles:"user"}).select('-password');
 
   const page = Number(req.query.page) || 1;
   const limit = Number(req.query.limit) || 10;
